@@ -3205,8 +3205,9 @@ static long long timeInTenthsOfSeconds(struct timeval t)
 
 - (void)setFont:(NSFont*)font
          nafont:(NSFont*)nafont
-    horizontalSpacing:(float)horizontalSpacing
-    verticalSpacing:(float)verticalSpacing
+horizontalSpacing:(float)horizontalSpacing
+verticalSpacing:(float)verticalSpacing
+resizeParentWindowToFit:(BOOL)resizeParentWindowToFit
 {
     if ([[TEXTVIEW font] isEqualTo:font] &&
         [[TEXTVIEW nafont] isEqualTo:nafont] &&
@@ -3215,12 +3216,24 @@ static long long timeInTenthsOfSeconds(struct timeval t)
         return;
     }
     [TEXTVIEW setFont:font nafont:nafont horizontalSpacing:horizontalSpacing verticalSpacing:verticalSpacing];
-    if (![[[self tab] parentWindow] anyFullScreen]) {
+    if (resizeParentWindowToFit && ![[[self tab] parentWindow] anyFullScreen]) {
         [[[self tab] parentWindow] fitWindowToTab:[self tab]];
     }
     // If the window isn't able to adjust, or adjust enough, make the session
     // work with whatever size we ended up having.
     [[self tab] fitSessionToCurrentViewSize:self];
+}
+
+- (void)setFont:(NSFont*)font
+         nafont:(NSFont*)nafont
+horizontalSpacing:(float)horizontalSpacing
+verticalSpacing:(float)verticalSpacing
+{
+    [self setFont:font
+           nafont:nafont
+     horizontalSpacing:horizontalSpacing
+  verticalSpacing:verticalSpacing
+     resizeParentWindowToFit:YES];
 }
 
 - (void)synchronizeTmuxFonts:(NSNotification *)notification
@@ -3279,11 +3292,11 @@ static long long timeInTenthsOfSeconds(struct timeval t)
     return ignoreResizeNotifications_;
 }
 
-- (void)changeFontSizeDirection:(int)dir
+- (void)changeFontSizeDirection:(int)dir resizeParentWindowToFit:(BOOL)resizeParentWindowToFit
 {
     NSFont* font = [self fontWithRelativeSize:dir from:[TEXTVIEW font]];
     NSFont* nafont = [self fontWithRelativeSize:dir from:[TEXTVIEW nafont]];
-    [self setFont:font nafont:nafont horizontalSpacing:[TEXTVIEW horizontalSpacing] verticalSpacing:[TEXTVIEW verticalSpacing]];
+    [self setFont:font nafont:nafont horizontalSpacing:[TEXTVIEW horizontalSpacing] verticalSpacing:[TEXTVIEW verticalSpacing] resizeParentWindowToFit:resizeParentWindowToFit];
 
     // Move this bookmark into the sessions model.
     NSString* guid = [self divorceAddressBookEntryFromPreferences];
@@ -3303,6 +3316,11 @@ static long long timeInTenthsOfSeconds(struct timeval t)
     if ([[[PreferencePanel sessionsInstance] window] isVisible]) {
         [[PreferencePanel sessionsInstance] underlyingBookmarkDidChange];
     }
+}
+
+- (void)changeFontSizeDirection:(int)dir
+{
+    [self changeFontSizeDirection:dir resizeParentWindowToFit:YES];
 }
 
 - (void)remarry

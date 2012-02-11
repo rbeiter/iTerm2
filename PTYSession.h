@@ -490,6 +490,7 @@ typedef enum {
 - (int)columns;
 - (int)rows;
 - (void)changeFontSizeDirection:(int)dir;
+- (void)changeFontSizeDirection:(int)dir resizeParentWindowToFit:(BOOL)resizeParentWindowToFit;
 - (void)setFont:(NSFont*)font nafont:(NSFont*)nafont horizontalSpacing:(float)horizontalSpacing verticalSpacing:(float)verticalSpacing;
 
 // Assigns a new GUID to the session so that changes to the bookmark will not

@@ -762,6 +762,8 @@ NSWindowDelegate,
 - (void)setDimmingForSession:(PTYSession *)aSession;
 - (void)setDimmingForSessions;
 
+- (void)changeFontSizeDirection:(int)dir;
+
 @end
 
 @interface PseudoTerminal (KeyValueCoding)

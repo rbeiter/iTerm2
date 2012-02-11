@@ -873,14 +873,23 @@ static BOOL hasBecomeActive = NO;
 }
 
 // font control
+- (void) changeFontDirection:(int)direction {
+    // TODO: make this based on setting - RBB
+    BOOL affectAllTabs = YES;
+    
+    if (affectAllTabs) {
+        [[[iTermController sharedInstance] currentTerminal] changeFontSizeDirection:direction];
+    } else {
+        [[[[iTermController sharedInstance] currentTerminal] currentSession] changeFontSizeDirection:direction];
+    }
+}
 - (IBAction) biggerFont: (id) sender
 {
-    [[[[iTermController sharedInstance] currentTerminal] currentSession] changeFontSizeDirection:1];
+    [self changeFontDirection:1];
 }
-
 - (IBAction) smallerFont: (id) sender
 {
-    [[[[iTermController sharedInstance] currentTerminal] currentSession] changeFontSizeDirection:-1];
+    [self changeFontDirection:-1];
 }
 
 

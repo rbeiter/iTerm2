@@ -4115,6 +4115,14 @@ NSString *sessionsKey = @"sessions";
         }
 }
 
+- (void)changeFontSizeDirection:(int)dir {
+    BOOL resizeParentWindowToFit = YES;
+    for (PTYSession *session in [self sessions]) {
+        [session changeFontSizeDirection:dir resizeParentWindowToFit:resizeParentWindowToFit];
+        resizeParentWindowToFit = NO;
+    }
+}
+
 @end
 
 @implementation PseudoTerminal (Private)
