@@ -1197,6 +1197,7 @@ static float versionNumber;
     defaultFsTabDelay = [prefs objectForKey:@"FsTabDelay"] ? [[prefs objectForKey:@"FsTabDelay"] floatValue] : 1.0;
     defaultUseCompactLabel = [prefs objectForKey:@"UseCompactLabel"]?[[prefs objectForKey:@"UseCompactLabel"] boolValue]: YES;
     defaultHideActivityIndicator = [prefs objectForKey:@"HideActivityIndicator"]?[[prefs objectForKey:@"HideActivityIndicator"] boolValue]: NO;
+    defaultFontSizeChangesAffectAllTabs = [prefs objectForKey:@"FontSizeChangesAffectAllTabs"]?[[prefs objectForKey:@"FontSizeChangesAffectAllTabs"] boolValue]: NO;
     defaultHighlightTabLabels = [prefs objectForKey:@"HighlightTabLabels"]?[[prefs objectForKey:@"HighlightTabLabels"] boolValue]: YES;
     defaultAdvancedFontRendering = [prefs objectForKey:@"HiddenAdvancedFontRendering"]?[[prefs objectForKey:@"HiddenAdvancedFontRendering"] boolValue] : NO;
     defaultStrokeThickness = [prefs objectForKey:@"HiddenAFRStrokeThickness"] ? [[prefs objectForKey:@"HiddenAFRStrokeThickness"] floatValue] : 0;
@@ -1322,6 +1323,7 @@ static float versionNumber;
     [prefs setBool:defaultClosingHotkeySwitchesSpaces forKey:@"ClosingHotkeySwitchesSpaces"];
     [prefs setBool:defaultUseCompactLabel forKey:@"UseCompactLabel"];
     [prefs setBool:defaultHideActivityIndicator forKey:@"HideActivityIndicator"];
+    [prefs setBool:defaultFontSizeChangesAffectAllTabs forKey:@"FontSizeChangesAffectAllTabs"];
     [prefs setBool:defaultHighlightTabLabels forKey:@"HighlightTabLabels"];
     [prefs setBool:defaultAdvancedFontRendering forKey:@"HiddenAdvancedFontRendering"];
     [prefs setFloat:defaultStrokeThickness forKey:@"HiddenAFRStrokeThickness"];
@@ -1413,6 +1415,7 @@ static float versionNumber;
     [closingHotkeySwitchesSpaces setState:defaultClosingHotkeySwitchesSpaces?NSOnState:NSOffState];
     [useCompactLabel setState: defaultUseCompactLabel?NSOnState:NSOffState];
     [hideActivityIndicator setState:defaultHideActivityIndicator?NSOnState:NSOffState];
+    [fontSizeChangesAffectAllTabs setState:defaultFontSizeChangesAffectAllTabs?NSOnState:NSOffState];
     [highlightTabLabels setState: defaultHighlightTabLabels?NSOnState:NSOffState];
     [advancedFontRendering setState: defaultAdvancedFontRendering?NSOnState:NSOffState];
     [strokeThickness setEnabled:defaultAdvancedFontRendering];
@@ -1604,6 +1607,7 @@ static float versionNumber;
         sender == hideTab ||
         sender == useCompactLabel ||
         sender == hideActivityIndicator ||
+        sender == fontSizeChangesAffectAllTabs ||
         sender == highlightTabLabels ||
         sender == hideScrollbar ||
         sender == showPaneTitles ||
@@ -1625,6 +1629,7 @@ static float versionNumber;
         defaultTabViewType=[tabPosition indexOfSelectedItem];
         defaultUseCompactLabel = ([useCompactLabel state] == NSOnState);
         defaultHideActivityIndicator = ([hideActivityIndicator state] == NSOnState);
+        defaultFontSizeChangesAffectAllTabs = ([fontSizeChangesAffectAllTabs state] == NSOnState);
         defaultHighlightTabLabels = ([highlightTabLabels state] == NSOnState);
         defaultShowPaneTitles = ([showPaneTitles state] == NSOnState);
         defaultAdvancedFontRendering = ([advancedFontRendering state] == NSOnState);
@@ -1952,6 +1957,11 @@ static float versionNumber;
 - (BOOL)hideActivityIndicator
 {
     return defaultHideActivityIndicator;
+}
+
+- (BOOL)fontSizeChangesAffectAllTabs
+{
+    return defaultFontSizeChangesAffectAllTabs;
 }
 
 - (BOOL)highlightTabLabels

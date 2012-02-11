@@ -874,8 +874,7 @@ static BOOL hasBecomeActive = NO;
 
 // font control
 - (void) changeFontDirection:(int)direction {
-    // TODO: make this based on setting - RBB
-    BOOL affectAllTabs = YES;
+    BOOL affectAllTabs = [[PreferencePanel sharedInstance] fontSizeChangesAffectAllTabs];
     
     if (affectAllTabs) {
         [[[iTermController sharedInstance] currentTerminal] changeFontSizeDirection:direction];

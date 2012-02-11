@@ -176,6 +176,10 @@ typedef enum { CURSOR_UNDERLINE, CURSOR_VERTICAL, CURSOR_BOX } ITermCursorType;
     IBOutlet NSButton *hideActivityIndicator;
     BOOL defaultHideActivityIndicator;
 
+    // font increase/decrease in size affects all tabs in current window
+    IBOutlet NSButton *fontSizeChangesAffectAllTabs;
+    BOOL defaultFontSizeChangesAffectAllTabs;
+    
     // Highlight tab labels on activity
     IBOutlet NSButton *highlightTabLabels;
     BOOL defaultHighlightTabLabels;
@@ -647,6 +651,7 @@ typedef enum {
 - (BOOL)closingHotkeySwitchesSpaces;
 - (BOOL)useCompactLabel;
 - (BOOL)hideActivityIndicator;
+- (BOOL)fontSizeChangesAffectAllTabs;
 - (BOOL)highlightTabLabels;
 - (BOOL)openBookmark;
 - (NSString *)wordChars;
